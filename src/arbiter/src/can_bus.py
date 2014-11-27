@@ -26,6 +26,8 @@ import random
 from std_msgs.msg import String
 from frame_msg.msg import frame
 
+TOPIC = "CAN_BUS"
+
 id_responses = []
 keys = [
     0x7FF
@@ -45,7 +47,7 @@ def bus_grant(pub, node):
     pub.publish(0x001, 1, 1, [0x22], 0, 0)
 
 def talker():
-    pub = rospy.Publisher('CAN_BUS_TX', frame)
+    pub = rospy.Publisher(TOPIC, frame)
     rospy.Subscriber('CAN_BUS_RX', frame, callback, pub)
     rospy.init_node('arbiter', anonymous=True)
     r = rospy.Rate(0.5) # 10hz
